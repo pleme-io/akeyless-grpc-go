@@ -30,14 +30,14 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	AkeylessV2Service_Auth_FullMethodName                  = "/akeyless_grpc.services.v2service.AkeylessV2Service/Auth"
-	AkeylessV2Service_CreateSecret_FullMethodName          = "/akeyless_grpc.services.v2service.AkeylessV2Service/CreateSecret"
-	AkeylessV2Service_DeleteItem_FullMethodName            = "/akeyless_grpc.services.v2service.AkeylessV2Service/DeleteItem"
-	AkeylessV2Service_DescribeItem_FullMethodName          = "/akeyless_grpc.services.v2service.AkeylessV2Service/DescribeItem"
-	AkeylessV2Service_GetRotatedSecretValue_FullMethodName = "/akeyless_grpc.services.v2service.AkeylessV2Service/GetRotatedSecretValue"
-	AkeylessV2Service_GetSecretValue_FullMethodName        = "/akeyless_grpc.services.v2service.AkeylessV2Service/GetSecretValue"
-	AkeylessV2Service_ListItems_FullMethodName             = "/akeyless_grpc.services.v2service.AkeylessV2Service/ListItems"
-	AkeylessV2Service_UpdateSecretVal_FullMethodName       = "/akeyless_grpc.services.v2service.AkeylessV2Service/UpdateSecretVal"
+	AkeylessV2Service_Auth_FullMethodName                  = "/akeyless_grpc.AkeylessV2Service/Auth"
+	AkeylessV2Service_CreateSecret_FullMethodName          = "/akeyless_grpc.AkeylessV2Service/CreateSecret"
+	AkeylessV2Service_DeleteItem_FullMethodName            = "/akeyless_grpc.AkeylessV2Service/DeleteItem"
+	AkeylessV2Service_DescribeItem_FullMethodName          = "/akeyless_grpc.AkeylessV2Service/DescribeItem"
+	AkeylessV2Service_GetRotatedSecretValue_FullMethodName = "/akeyless_grpc.AkeylessV2Service/GetRotatedSecretValue"
+	AkeylessV2Service_GetSecretValue_FullMethodName        = "/akeyless_grpc.AkeylessV2Service/GetSecretValue"
+	AkeylessV2Service_ListItems_FullMethodName             = "/akeyless_grpc.AkeylessV2Service/ListItems"
+	AkeylessV2Service_UpdateSecretVal_FullMethodName       = "/akeyless_grpc.AkeylessV2Service/UpdateSecretVal"
 )
 
 // AkeylessV2ServiceClient is the client API for AkeylessV2Service service.
@@ -346,7 +346,7 @@ func _AkeylessV2Service_UpdateSecretVal_Handler(srv interface{}, ctx context.Con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AkeylessV2Service_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "akeyless_grpc.services.v2service.AkeylessV2Service",
+	ServiceName: "akeyless_grpc.AkeylessV2Service",
 	HandlerType: (*AkeylessV2ServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
