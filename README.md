@@ -21,46 +21,62 @@ To use `akeyless_grpc` in your project, run the following command `go get github
 ## Example
 
 ```go
-ctx := context.Background()
-conn, err := grpc.NewClient("localhost:8085", grpc.WithTransportCredentials(insecure.NewCredentials()))
+package main
 
-if err != nil {
-    t.Error(err)
+import (
+	"context"
+	"fmt"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+
+	akeyless_grpc "github.com/akeylesslabs/akeyless-grpc-go/akeyless_grpc"
+)
+
+func main() {
+
+	ctx := context.Background()
+	conn, err := grpc.NewClient("localhost:8085", grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	if err != nil {
+		return
+	}
+
+	client := akeyless_grpc.NewAkeylessV2ServiceClient(conn)
+
+	authOutput, err := client.Auth(ctx, &akeyless_grpc.AuthRequest{
+		Body: &akeyless_grpc.Auth{
+			AccessId:   "*******",
+			AccessKey:  "*******",
+			AccessType: "access_key",
+		},
+	})
+
+	if err != nil {
+		return
+	}
+
+	listItemsResp, err := client.ListItems(ctx, &akeyless_grpc.ListItemsRequest{Body: &akeyless_grpc.ListItems{Token: authOutput.Token}})
+
+	if err != nil {
+		return
+	}
+
+	for _, item := range listItemsResp.Items {
+		fmt.Println(item.ItemName)
+	}
+
+	secretResponse, err := client.GetSecretValue(ctx, &akeyless_grpc.GetSecretValueRequest{Body: &akeyless_grpc.GetSecretValue{Token: authOutput.Token, Names: []string{"/MyFirstSecret"}}})
+
+	if err != nil {
+		return
+	}
+
+	for secretName, item := range secretResponse.Data.Fields {
+		fmt.Println(secretName, item.GetStringValue())
+	}
 }
 
-client := NewAkeylessV2ServiceClient(conn)
-
-authOutput, err := client.Auth(ctx, &AuthRequest{
-    Body: &Auth{
-        AccessId:   "**********",
-        AccessKey:  "**********",
-        AccessType: "access_key",
-    },
-})
-
-if err != nil {
-    t.Error(err)
-}
-
-listItemsResp, err := client.ListItems(ctx, &ListItemsRequest{Body: &ListItems{Token: authOutput.Token}})
-
-if err != nil {
-    return
-}
-
-for _, item := range listItemsResp.Items {
-    fmt.Println(item.ItemName)
-}
-
-secretResponse, err := client.GetSecretValue(ctx, &GetSecretValueRequest{Body: &GetSecretValue{Token: authOutput.Token, Names: []string{"/MyFirstSecret"}}})
-
-if err != nil {
-    return
-}
-
-for secretName, item := range secretResponse.Data.Fields {
-    fmt.Println(secretName, item.GetStringValue())
-}
 ```
 
 ### License
