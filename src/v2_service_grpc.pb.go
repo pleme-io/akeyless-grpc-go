@@ -15,7 +15,7 @@
 // - protoc             v4.24.4
 // source: services/v2_service.proto
 
-package akeyless_grpc
+package models
 
 import (
 	context "context"
