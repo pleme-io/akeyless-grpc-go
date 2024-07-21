@@ -15,7 +15,7 @@
 // - protoc             v4.24.4
 // source: services/v2_service.proto
 
-package models
+package services
 
 import (
 	context "context"
