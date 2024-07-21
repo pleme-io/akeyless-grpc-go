@@ -1,4 +1,4 @@
-module github.com/akeylesslabs/akeyless-grpc-go/akeyless_grpc
+module github.com/akeylesslabs/akeyless-grpc-go
 
 go 1.22.2
 
