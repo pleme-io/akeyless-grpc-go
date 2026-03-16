@@ -10,20 +10,15 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, substrate, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs { inherit system; };
-      mkGoLibraryCheck = (import "${substrate}/lib/go-library-check.nix").mkGoLibraryCheck;
-    in {
-      checks.default = mkGoLibraryCheck pkgs {
-        pname = "akeyless-grpc-go";
-        version = "0.0.0-dev";
-        src = self;
-        vendorHash = "sha256-JSDU/ieSHMr/j4qvk8TsBDO/vdR18czNWJCr8K/9vsI=";
-      };
-
-      devShells.default = pkgs.mkShellNoCC {
-        packages = with pkgs; [ go gopls gotools ];
-      };
-    });
+  outputs = inputs: (import "${inputs.substrate}/lib/repo-flake.nix" {
+    inherit (inputs) nixpkgs flake-utils;
+  }) {
+    self = inputs.self;
+    language = "go";
+    builder = "library";
+    pname = "akeyless-grpc-go";
+    vendorHash = "sha256-JSDU/ieSHMr/j4qvk8TsBDO/vdR18czNWJCr8K/9vsI=";
+    description = "Go gRPC client for interacting with the Akeyless API";
+    homepage = "https://github.com/pleme-io/akeyless-grpc-go";
+  };
 }
